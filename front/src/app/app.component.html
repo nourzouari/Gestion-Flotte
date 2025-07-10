@@ -1,0 +1,12 @@
+<!-- src/app/app.component.html -->
+<div class="container">
+  <nav class="sidebar">
+    <a routerLink="/vehicles" routerLinkActive="active">Vehicles</a>
+    <a routerLink="/drivers" routerLinkActive="active">Drivers</a>
+    <a routerLink="/histories" routerLinkActive="active">Histories</a>
+  </nav>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

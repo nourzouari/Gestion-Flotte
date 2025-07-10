@@ -1,0 +1,73 @@
+<app-navbar></app-navbar>
+
+<div class="drivers-container">
+  <div class="header-action">
+    <button [routerLink]="['/assign-vehicle']" class="btn btn-primary">
+      Nouvelle attribution
+    </button>
+  </div>
+
+  <div class="driver-list-container">
+    <table class="driver-table" *ngIf="assignments.length > 0; else noAssignments">
+      <thead>
+        <tr>
+          <th>Conducteur</th>
+          <th>Véhicule</th>
+          <th>Date début</th>
+          <th>Date fin</th>
+          <th>Note</th>
+          <th class="actions-header">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of assignments">
+          <td>{{ a.driver?.name }}</td>
+          <td>{{ a.vehicle?.registration_number }}</td>
+          <td>{{ a.start_date | date: 'yyyy-MM-dd' }}</td>
+          <td>{{ a.end_date | date: 'yyyy-MM-dd' }}</td>
+          <td>{{ a.notes || '—' }}</td>
+          <td class="actions-cell">
+            <div class="actions-buttons">
+              <button 
+  *ngIf="a.id" 
+  (click)="editAssignment(a.id)" 
+  class="btn btn-edit" 
+  title="Modifier">
+  ✏️
+</button>
+
+
+              <button 
+                (click)="deleteAssignment(a.id)" 
+                class="btn btn-delete" 
+                title="Supprimer">
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #noAssignments>
+      <div class="no-drivers-message">
+        Aucune attribution trouvée. 
+        <a routerLink="/assign-vehicle">Créer une attribution</a>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="footer-info" *ngIf="assignments.length">
+    Affichage de {{ assignments.length }} attribution(s)
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    <div class="spinner"></div>
+    <span>Chargement en cours...</span>
+  </div>
+
+  <div class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+    <button (click)="loadAssignments()">Réessayer</button>
+  </div>
+</div>

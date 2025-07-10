@@ -1,0 +1,19 @@
+*.sqlite*
+
+flotte_project/vendor/
+
+# Laravel cache and logs
+flotte_project/storage/*
+!flotte_project/storage/app
+!flotte_project/storage/framework
+!flotte_project/storage/logs
+
+# Laravel environment file
+flotte_project/.env
+
+# IDE config (optionnel)
+*.log
+*.env
+.DS_Store
+.idea/
+.vscode/

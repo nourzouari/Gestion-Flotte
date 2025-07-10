@@ -1,0 +1,45 @@
+<div class="top-bar">
+  <div class="nav-container">
+    <span class="app-title">{{ currentTitle }}</span>
+    
+    <nav class="nav-menu">
+ <div class="dropdown">
+        <a class="dropdown-toggle" tabindex="0">Véhicules</a>
+        <div class="dropdown-menu">
+          <a routerLink="/vehicle-availability" routerLinkActive="active">Vérifier disponibilité</a>
+          <a routerLink="/assignments" routerLinkActive="active">Attributions</a>
+          <a routerLink="/vehicles" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Liste des voitures</a>
+        </div>
+      </div>
+
+      <a routerLink="/drivers" routerLinkActive="active">Conducteurs</a>
+      <a routerLink="/histories" routerLinkActive="active">Historiques</a>
+
+     
+
+    </nav>
+
+ <div class="user-menu" (click)="toggleDropdown()" tabindex="0">
+  <div class="user-avatar">
+    {{ driverInitial || '?' }}
+  </div>
+
+  <div class="dropdown" *ngIf="dropdownOpen">
+    <div class="dropdown-item">
+      <strong>{{ currentUser?.name }}</strong><br />
+      <small>{{ currentUser?.email }}</small>
+    </div>
+    <hr />
+    <a class="dropdown-item" routerLink="/profile">👤 Profil</a>
+    <button class="dropdown-item logout-btn" (click)="logout(); $event.stopPropagation();">
+      🚪 Logout
+    </button>
+  </div>
+</div>
+
+
+
+
+
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="form-container">
+  <h2>{{ isEditMode ? 'Modifier véhicule' : 'Nouveau véhicule' }}</h2>
+
+  <div *ngIf="loading" class="loading-message">
+    Chargement des données en cours...
+  </div>
+
+  <form *ngIf="!loading" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Immatriculation</label>
+      <input type="text" formControlName="registration_number">
+      <div *ngIf="form.get('registration_number')?.invalid && form.get('registration_number')?.touched" class="error">
+        Ce champ est requis
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Marque</label>
+      <input type="text" formControlName="brand">
+      <div *ngIf="form.get('brand')?.invalid && form.get('brand')?.touched" class="error">
+        Ce champ est requis
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Modèle</label>
+      <input type="text" formControlName="model">
+      <div *ngIf="form.get('model')?.invalid && form.get('model')?.touched" class="error">
+        Ce champ est requis
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Année</label>
+      <input type="number" formControlName="year">
+      <div *ngIf="form.get('year')?.invalid && form.get('year')?.touched" class="error">
+        Année invalide (minimum 1900)
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Type</label>
+      <select formControlName="type">
+        <option value="">-- Choisir un type --</option>
+        <option value="SUV">SUV</option>
+        <option value="Berline">Berline</option>
+        <option value="Camion">Camion</option>
+        <option value="Utilitaire">Utilitaire</option>
+      </select>
+      <div *ngIf="form.get('type')?.invalid && form.get('type')?.touched" class="error">
+        Ce champ est requis
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="form.invalid || loading">
+        {{ isEditMode ? 'Mettre à jour' : 'Créer' }}
+      </button>
+      <button type="button" (click)="navigateToVehicleList()" [disabled]="loading">
+        Annuler
+      </button>
+    </div>
+  </form>
+</div>

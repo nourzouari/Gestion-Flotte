@@ -1,0 +1,62 @@
+<form [formGroup]="historyForm" (ngSubmit)="onSubmit()" class="form-container">
+  <h2>{{ isEditMode ? 'Modifier une Histoire' : 'Ajouter une Histoire' }}</h2>
+
+  <div class="form-group">
+    <label for="type">Type d'historique</label>
+    <select id="type" formControlName="type">
+      <option value="Accident">Accident</option>
+      <option value="Infraction">Infraction</option>
+      <option value="Maintenance">Maintenance</option>
+    </select>
+    <div *ngIf="historyForm.get('type')?.invalid && historyForm.get('type')?.touched" class="error">
+      Le type est obligatoire.
+    </div>
+  </div> 
+  <div class="form-group">
+    <label for="description">Description</label>
+    <input id="description" type="text" formControlName="description" />
+  </div>
+
+  <div class="form-group">
+    <label for="date">Date</label>
+    <input id="date" type="date" formControlName="date" />
+    <div *ngIf="historyForm.get('date')?.invalid && historyForm.get('date')?.touched" class="error">
+      La date est obligatoire.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="driver_id">Conducteur</label>
+    <select id="driver_id" formControlName="driver_id">
+      <option value="" disabled>-- Sélectionnez un conducteur --</option>
+      <option *ngFor="let driver of drivers" [value]="driver.id">
+        {{ driver.name }} (ID: {{ driver.id }})
+      </option>
+    </select>
+    <div *ngIf="historyForm.get('driver_id')?.invalid && historyForm.get('driver_id')?.touched" class="error">
+      Le conducteur est obligatoire.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="vehicle_id">Véhicule</label>
+    <select id="vehicle_id" formControlName="vehicle_id">
+      <option value="" disabled>-- Sélectionnez un véhicule --</option>
+      <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
+        {{ vehicle.id }} - {{ vehicle.model }}
+      </option>
+    </select>
+    <div *ngIf="historyForm.get('vehicle_id')?.invalid && historyForm.get('vehicle_id')?.touched" class="error">
+      Le véhicule est obligatoire.
+    </div>
+  </div>
+
+
+
+<button type="submit" [disabled]="historyForm.invalid">
+  {{ isEditMode ? 'Modifier' : 'Ajouter' }}
+</button>
+
+
+</form>
+

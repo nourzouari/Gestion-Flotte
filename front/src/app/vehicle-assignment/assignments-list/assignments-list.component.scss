@@ -1,0 +1,153 @@
+.top-bar {
+  background-color: #3498db;
+  color: white;
+  padding: 15px 25px;
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-align: left;
+  border-radius: 6px 6px 0 0;
+}
+
+.drivers-container {
+  padding: 20px;
+  background: #fdfdfd;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  border-radius: 0 0 6px 6px;
+
+  .header-action {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+  }
+
+  .driver-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f5f5f5;
+      color: #2c3e50;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+  }
+}
+
+.no-drivers-message {
+  padding: 2rem;
+  text-align: center;
+  color: #7f8c8d;
+  
+  a {
+    color: #3498db;
+    text-decoration: none;
+    cursor: pointer;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.footer-info {
+  margin-top: 1rem;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  color: #7f8c8d;
+  text-align: right;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: #3498db;
+  
+  .spinner {
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+  }
+}
+
+.error-message {
+  padding: 1rem;
+  background-color: #f8d7da;
+  color: #721c24;
+  border-radius: 4px;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  
+  button {
+    margin-left: auto;
+    background: none;
+    border: 1px solid #721c24;
+    color: #721c24;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: #f1b0b7;
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.btn {
+  padding: 8px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 6px;
+  transition: background-color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &-primary {
+    background-color: #007bff;
+    color: white;
+
+    &:hover {
+      background-color: #0069d9;
+    }
+  }
+
+  &-edit {
+    background-color: #f1c40f;
+    color: white;
+
+    &:hover {
+      background-color: #d4ac0d;
+    }
+  }
+
+  &-delete {
+    background-color: #e74c3c;
+    color: white;
+
+    &:hover {
+      background-color: #c0392b;
+    }
+  }
+}

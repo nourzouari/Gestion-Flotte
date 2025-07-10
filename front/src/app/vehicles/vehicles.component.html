@@ -1,0 +1,82 @@
+<app-navbar></app-navbar>
+
+<div class="vehicles-container">
+  <!-- Bouton d'ajout -->
+  <div class="header-action">
+    <button (click)="newVehicle()" class="btn btn-primary">
+      ➕ Ajouter un véhicule
+    </button>
+  </div>
+
+  <!-- Liste des véhicules -->
+  <div class="vehicle-list-container">
+    <table class="vehicle-table" *ngIf="vehicles.length > 0; else noVehicles">
+      <thead>
+        <tr>
+          <th>Immatriculation</th>
+          <th>Marque</th>
+          <th>Modèle</th>
+          <th>Année</th>
+          <th>Type</th>
+          <th class="actions-header">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let vehicle of vehicles">
+          <td>{{ vehicle.registration_number }}</td>
+          <td>{{ vehicle.brand }}</td>
+          <td>{{ vehicle.model }}</td>
+          <td>{{ vehicle.year || '—' }}</td>
+          <td>{{ vehicle.type }}</td>
+
+          <td class="actions-cell">
+            <div class="actions-buttons">
+              <!-- Modifier -->
+              <button
+                (click)="editVehicle(vehicle)"
+                class="btn btn-edit"
+                title="Modifier le véhicule"
+              >
+                ✏️
+              </button>
+
+              <!-- Supprimer -->
+              <button
+                (click)="onDeleteVehicle(vehicle.id!)"
+                class="btn btn-delete"
+                title="Supprimer le véhicule"
+              >
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Aucun véhicule -->
+    <ng-template #noVehicles>
+      <div class="no-vehicles-message">
+        Aucun véhicule trouvé.
+        <button (click)="newVehicle()" class="btn btn-link">Ajouter un véhicule</button>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Pied de page -->
+  <div class="footer-info" *ngIf="vehicles.length">
+    Affichage de {{ vehicles.length }} véhicule(s)
+  </div>
+
+  <!-- Chargement -->
+  <div class="loading" *ngIf="loading">
+    <div class="spinner"></div>
+    <span>Chargement en cours...</span>
+  </div>
+
+  <!-- Erreur -->
+  <div class="error-message" *ngIf="errorMessage">
+    <i class="icon-error"></i> {{ errorMessage }}
+    <button (click)="loadVehicles()">Réessayer</button>
+  </div>
+</div>

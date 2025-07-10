@@ -1,0 +1,40 @@
+<app-navbar></app-navbar>
+
+
+<div class="histories-container">
+  <div class="header-action">
+    <button routerLink="/histories/new" class="btn btn-primary">Ajouter une histoire</button>
+  </div>
+
+  <table class="history-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>ID Conducteur</th>
+        <th>ID Véhicule</th> <!-- Nouveau -->
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let history of histories">
+        <td>{{ history.date | date:'shortDate' }}</td>
+        <td>{{ history.type }}</td>
+        <td>{{ history.description }}</td>
+        <td>{{ history.driver_id }}</td>
+        <td>{{ history.vehicle_id }}</td>         <!-- Nouveau -->
+          <!-- Nouveau avec affichage conditionnel -->
+        <td>
+  <button *ngIf="history.id" (click)="editHistory(history.id)" class="btn btn-edit" title="Modifier">✏️</button>
+  <button *ngIf="history.id" (click)="delete(history.id)" class="btn btn-delete" title="Supprimer">🗑️</button>
+</td>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footer-info">
+    Affichage de {{ histories.length }} historique(s)
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<app-navbar></app-navbar>
+
+
+<div class="drivers-container">
+  <div class="header-action">
+    <button (click)="newDriver()" class="btn btn-primary">
+      Ajouter un conducteur
+    </button>
+  </div>
+
+  <div class="driver-list-container">
+    <table class="driver-table" *ngIf="drivers.length > 0; else noDrivers">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>N° Permis</th>
+          <th>Téléphone</th>
+          <th>Email</th>
+          <th class="actions-header">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let driver of drivers">
+          <td>{{ driver.name }}</td>
+          <td>{{ driver.license_number }}</td>
+          <td>{{ driver.phone || '—' }}</td>
+          <td>{{ driver.email || '—' }}</td>
+          <td class="actions-cell">
+            <div class="actions-buttons">
+              <button 
+                [routerLink]="['/drivers/edit', driver.id]" 
+                class="btn btn-edit" 
+                title="Modifier">
+                ✏️
+              </button>
+              <button 
+                (click)="deleteDriver(driver.id)" 
+                class="btn btn-delete" 
+                title="Supprimer">
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #noDrivers>
+      <div class="no-drivers-message">
+        Aucun conducteur trouvé. <a (click)="newDriver()">Ajouter un conducteur</a>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="footer-info" *ngIf="drivers.length">
+    Affichage de {{ drivers.length }} conducteur(s)
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    <div class="spinner"></div>
+    <span>Chargement en cours...</span>
+  </div>
+  
+  <div class="error-message" *ngIf="errorMessage">
+    <i class="icon-error"></i> {{ errorMessage }}
+    <button (click)="loadDrivers()">Réessayer</button>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<app-navbar></app-navbar>
+
+<!-- profile.component.html -->
+<div class="profile-container">
+  <!-- En-tête du profil -->
+  <div class="profile-header">
+    <div class="avatar-container">
+      <div class="avatar" [style.background-color]="color">
+        @if (user && user.name) {
+          {{ user.name.charAt(0).toUpperCase() }}
+        } @else {
+          U
+        }
+      </div>
+      @if (user) {
+        <button mat-icon-button class="edit-btn" (click)="openEditDialog()">
+          <mat-icon>edit</mat-icon>
+        </button>
+      }
+    </div>
+    <h2>{{ user?.name || 'Utilisateur' }}</h2>
+    <p class="user-email">{{ user?.email || '' }}</p>
+  </div>
+
+  <!-- Carte d'informations -->
+  @if (user) {
+    <mat-card class="profile-card">
+      <mat-card-content>
+        <div class="info-row">
+          <mat-icon>badge</mat-icon>
+          <div>
+            <h3>ID Utilisateur</h3>
+            <p>{{ user.id || 'Non disponible' }}</p>
+          </div>
+        </div>
+        
+        <div class="info-row">
+          <mat-icon>card_membership</mat-icon>
+          <div>
+            <h3>Numéro de permis</h3>
+            <p>{{ user.license_number || 'Non renseigné' }}</p>
+          </div>
+        </div>
+        
+        <div class="info-row">
+          <mat-icon>calendar_today</mat-icon>
+          <div>
+            <h3>Membre depuis</h3>
+            @if (user.created_at) {
+              <p>{{ user.created_at | date:'longDate' }}</p>
+            } @else {
+              <p>Date inconnue</p>
+            }
+          </div>
+        </div>
+      </mat-card-content>
+      
+      <mat-card-actions>
+        <button mat-stroked-button color="primary" (click)="navigateToEditProfile()">
+          <mat-icon>edit</mat-icon>
+          <span>Modifier le profil</span>
+        </button>
+
+        <button mat-stroked-button color="accent" (click)="navigateToChangePassword()">
+          <mat-icon>lock</mat-icon>
+          <span>Changer le mot de passe</span>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  } @else if (error) {
+    <div class="error-message">
+      <mat-icon>error_outline</mat-icon>
+      <p>Impossible de charger les informations de l'utilisateur.</p>
+      <button mat-stroked-button (click)="loadUserData()">
+        <mat-icon>refresh</mat-icon> Réessayer
+      </button>
+    </div>
+  } @else {
+    <div class="loading-message">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Chargement du profil...</p>
+    </div>
+  }
+</div>

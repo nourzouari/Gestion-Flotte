@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+<br><br/>
+
+<h2>Rechercher véhicules disponibles</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="va-dates">
+    <div class="va-field">
+      <label for="startDate">Date de début</label>
+      <input id="startDate" type="date" formControlName="startDate" required />
+    </div>
+    <div class="va-field">
+      <label for="endDate">Date de fin</label>
+      <input id="endDate" type="date" formControlName="endDate" required />
+    </div>
+  </div>
+
+  <div class="va-btn-container">
+    <button type="submit" class="va-btn-search" [disabled]="form.invalid">
+      🔍 Rechercher
+    </button>
+  </div>
+</form>
+
+<div *ngIf="loading">Chargement...</div>
+
+<div *ngIf="errorMessage" style="color: red; margin-top: 10px;">
+  {{ errorMessage }}
+</div>
+
+<ul *ngIf="vehicles.length > 0" style="margin-top: 20px;">
+  <li *ngFor="let v of vehicles">
+    {{ v.registration_number }} – {{ v.brand }} {{ v.model }} ({{ v.year }})
+  </li>
+</ul>

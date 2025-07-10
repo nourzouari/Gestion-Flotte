@@ -1,0 +1,72 @@
+<app-navbar></app-navbar>
+
+<div class="av-wrapper">
+  <h2>{{ isEditMode ? 'Modifier une assignation' : 'Attribuer un véhicule' }}</h2>
+
+  <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()" class="av-form">
+
+    <div class="av-dates">
+
+      <!-- Date de début -->
+      <div class="form-group">
+        <label for="startDate">Date de Début</label>
+        <input id="startDate" type="date" formControlName="start_date" />
+        <div *ngIf="assignmentForm.get('start_date')?.invalid && assignmentForm.get('start_date')?.touched" class="error">
+          La date de début est obligatoire.
+        </div>
+      </div>
+
+      <!-- Date de fin -->
+      <div class="form-group">
+        <label for="endDate">Date de Fin</label>
+        <input id="endDate" type="date" formControlName="end_date" />
+        <div *ngIf="assignmentForm.get('end_date')?.invalid && assignmentForm.get('end_date')?.touched" class="error">
+          La date de fin est obligatoire.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Conducteur -->
+    <div class="form-group">
+      <label for="driver_id">Conducteur</label>
+      <select id="driver_id" formControlName="driver_id">
+        <option value="" disabled>-- Sélectionnez un conducteur --</option>
+        <option *ngFor="let driver of drivers" [value]="driver.id">
+          {{ driver.name }} (ID: {{ driver.id }})
+        </option>
+      </select>
+      <div *ngIf="assignmentForm.get('driver_id')?.invalid && assignmentForm.get('driver_id')?.touched" class="error">
+        Le conducteur est obligatoire.
+      </div>
+    </div>
+
+    <!-- Véhicule -->
+    <div class="form-group">
+      <label for="vehicle_id">Véhicule</label>
+      <select id="vehicle_id" formControlName="vehicle_id">
+        <option value="" disabled>-- Sélectionnez un véhicule --</option>
+        <option *ngFor="let vehicle of vehicles" [value]="vehicle.id">
+          {{ vehicle.registration_number }} - {{ vehicle.model }}
+        </option>
+      </select>
+      <div *ngIf="assignmentForm.get('vehicle_id')?.invalid && assignmentForm.get('vehicle_id')?.touched" class="error">
+        Le véhicule est obligatoire.
+      </div>
+    </div>
+
+    <!-- Note -->
+    <div class="form-group">
+      <label for="notes">Note</label>
+      <input id="notes" type="text" formControlName="notes" />
+    </div>
+
+    <!-- Boutons -->
+    <button type="submit" [disabled]="assignmentForm.invalid">{{ isEditMode ? 'Modifier' : 'Attribuer' }}</button>
+    <button type="button" (click)="cancel()">Annuler</button>
+
+  </form>
+
+  <div *ngIf="loading" class="av-loading">Chargement...</div>
+  <div *ngIf="errorMessage" class="av-error">{{ errorMessage }}</div>
+</div>

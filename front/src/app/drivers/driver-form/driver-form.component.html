@@ -1,0 +1,58 @@
+<div class="form-container">
+  <h2>{{ isEditMode ? 'Modifier' : 'Ajouter' }} un conducteur</h2>
+
+  <form [formGroup]="driverForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Nom & Prénom</label>
+      <input formControlName="name" type="text" />
+      <div *ngIf="driverForm.get('name')?.invalid && driverForm.get('name')?.touched" class="error">
+        Le nom est requis
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>N° Permis</label>
+      <input formControlName="license_number" type="text" />
+      <div *ngIf="driverForm.get('license_number')?.invalid && driverForm.get('license_number')?.touched" class="error">
+        Le numéro de permis est requis
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Téléphone</label>
+      <input formControlName="phone" type="text" />
+      <div *ngIf="driverForm.get('phone')?.invalid && driverForm.get('phone')?.touched" class="error">
+        Le téléphone est requis
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input formControlName="email" type="email" />
+      <div *ngIf="driverForm.get('email')?.invalid && driverForm.get('email')?.touched" class="error">
+        Un email valide est requis
+      </div>
+    </div>
+     <div class="form-group">
+     <label>Mot de passe</label>
+  <input formControlName="password" type="password" [attr.required]="!isEditMode" />
+  <div *ngIf="driverForm.get('password')?.invalid && driverForm.get('password')?.touched" class="error">
+    <span *ngIf="driverForm.get('password')?.errors?.['required']">Le mot de passe est requis</span>
+    <span *ngIf="driverForm.get('password')?.errors?.['minlength']">
+      Le mot de passe doit contenir au moins 8 caractères
+    </span>
+  </div>
+  <div *ngIf="isEditMode" class="hint">
+    Laisser vide pour ne pas modifier le mot de passe existant
+  </div>
+</div>
+    <div class="form-actions">
+      <button type="submit" [disabled]="driverForm.invalid || loading">
+        {{ isEditMode ? 'Mettre à jour' : 'Créer' }}
+      </button>
+      <button type="button" (click)="navigateDriversList()" [disabled]="loading">
+        Annuler
+      </button>
+    </div>
+  </form>
+</div>
